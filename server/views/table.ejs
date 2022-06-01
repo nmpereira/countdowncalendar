@@ -10,7 +10,7 @@
         <span>
             user:<%= data[i].user %>
         </span>||
-        <!-- <span>
+        <span>
             Title: <%= data[i].title %>
         </span>||
         <span>
@@ -18,20 +18,20 @@
         </span>||
         <span>
             completed: <%= data[i].completed %>
-        </span>||  -->
-        <span class="completedDate">
-            completed Date: <p class="dateComplete" id=<%=data[i].key %>><%= datecomplete[i] %>
-            </p>
-            <p class="dateCompleteCountdown" id=countdown<%=data[i].key %>>test</p>
         </span>
 
-        <!-- ||
+        ||
         <span>
             updated_at: <%= data[i].updated_at %>
         </span>||
         <span>
             created_at: <%= data[i].created_at %>
-        </span> -->
+        </span>||
+        <span class="completedDate">
+            completed Date: <span class="dateComplete" id=<%=data[i].key %>><%= datecomplete[i] %>
+            </span>||
+            <span class="dateCompleteCountdown" id=countdown<%=data[i].key %>>0</span>
+        </span>
 
         <button class="delete-button" id=<%=data[i].key %>>delete</button>
     </li>

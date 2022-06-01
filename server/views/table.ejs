@@ -1,38 +1,52 @@
 <% for(var i=0; i < data.length; i++) {%>
-    <li class="quote">
-        <!-- Output name from the iterated quote object -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">User</th>
+                <th scope="col">Title</th>
+                <th scope="col">description</th>
+                <th scope="col">completed</th>
+                <th scope="col">updated_at</th>
+                <th scope="col">created_at</th>
+                <th scope="col">completedDate</th>
+                <th scope="col">Countdown</th>
+                <th scope="col">delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <%= data[i].key %>
+                </td>
+                <td>
+                    <%= data[i].user %>
+                </td>
+                <td>
+                    <%= data[i].title %>
+                </td>
+                <td>
+                    <%= data[i].description %>
+                </td>
+                <td>
+                    <%= data[i].completed %>
+                </td>
 
-        <span>
-            <%= data[i].key %>
-        </span>||
 
-
-        <span>
-            user:<%= data[i].user %>
-        </span>||
-        <span>
-            Title: <%= data[i].title %>
-        </span>||
-        <span>
-            description: <%= data[i].description %>
-        </span>||
-        <span>
-            completed: <%= data[i].completed %>
-        </span>
-
-        ||
-        <span>
-            updated_at: <%= data[i].updated_at %>
-        </span>||
-        <span>
-            created_at: <%= data[i].created_at %>
-        </span>||
-        <span class="completedDate">
-            completed Date: <span class="dateComplete" id=<%=data[i].key %>><%= datecomplete[i] %>
-            </span>||
-            <span class="dateCompleteCountdown" id=countdown<%=data[i].key %>>0</span>
-        </span>
-
-        <button class="delete-button" id=<%=data[i].key %>>delete</button>
-    </li>
+                <td>
+                    <%= data[i].updated_at %>
+                        </span>
+                <td>
+                    <%= data[i].created_at %>
+                        </span>
+                        <div class="completedDate">
+                <td class="dateComplete" id=<%=data[i].key %>><%= datecomplete[i] %>
+                        </div>
+                <td class="dateCompleteCountdown" id=countdown<%=data[i].key %>>0</span>
+                </td>
+                <td>
+                    <button class="delete-button" id=<%=data[i].key %>>delete</button>
+                </td>
+        </tbody>
+    </table>
     <% } %>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>hello</h1>
+    <%- include('form') %>
+        <%- include('table') %>
+
+            <script>
+                const deleteButton = document.querySelectorAll('.delete-button')
+
+                deleteButton.forEach(button => {
+                    button.addEventListener('click', (e) => {
+
+                        const key = button.getAttribute('id')
+                        console.log("clicked", button, key)
+                        fetch(`/task/${key}`, {
+                            method: 'delete',
+                        })
+
+                        window.location.reload()
+                    })
+                })
+            </script>
+
+            <script>
+
+
+                // const secondsToHMS = (secs) => {
+                //     const sec_num = parseInt(secs, 10);
+                //     const hours = Math.floor(sec_num / 3600);
+                //     const minutes = Math.floor(sec_num / 60) % 60;
+                //     const seconds = sec_num % 60;
+                //     if (secs > 0) {
+                //         return [hours, minutes, seconds]
+                //             .map((v) => (v < 10 ? "0" + v : v))
+                //             .filter((v, i) => v !== "00" || i > 0)
+                //             .join(":");
+                //     } else return 0;
+                // };
+
+                // const secondsToHMS = (seconds) => {
+                //     seconds = Number(seconds);
+                //     var d = Math.floor(seconds / (3600 * 24));
+                //     var h = Math.floor(seconds % (3600 * 24) / 3600);
+                //     var m = Math.floor(seconds % 3600 / 60);
+                //     var s = Math.floor(seconds % 60);
+
+                //     var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
+                //     var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+                //     var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+                //     var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+                //     return dDisplay + hDisplay + mDisplay + sDisplay;
+                // }
+
+                function secondsToHMS(seconds) {
+                    let y = Math.floor(seconds / 31536000);
+                    let mo = Math.floor((seconds % 31536000) / 2628000);
+                    let d = Math.floor(((seconds % 31536000) % 2628000) / 86400);
+                    let h = Math.floor((seconds % (3600 * 24)) / 3600);
+                    let m = Math.floor((seconds % 3600) / 60);
+                    let s = Math.floor(seconds % 60);
+
+                    let yDisplay = y > 0 ? y + (y === 1 ? " y, " : " y, ") : "";
+                    let moDisplay = mo > 0 ? mo + (mo === 1 ? " m, " : " m, ") : "";
+                    let dDisplay = d > 0 ? d + (d === 1 ? " d, " : " d, ") : "";
+                    let hDisplay = h > 0 ? h + (h === 1 ? " h, " : " h, ") : "";
+                    let mDisplay = m > 0 ? m + (m === 1 ? " m " : " m, ") : "";
+                    let sDisplay = s > 0 ? s + (s === 1 ? " s" : " s ") : "";
+                    return yDisplay + moDisplay + dDisplay + hDisplay + mDisplay + sDisplay;
+
+                }
+
+
+
+                const dateToCountdown = (input) => {
+                    const dateInput = new Date(input)
+                    const date = new Date()
+                    const result = dateInput - date
+                    console.log(dateInput)
+
+                    return secondsToHMS(result / 1000)
+                }
+
+
+
+                const getdatefromdb = async (key) => {
+                    try {
+
+                        const response = await fetch(`/task/${key}/date`)
+                        const data = await response.json();
+                        return data
+                    } catch (error) {
+                        console.log('error', error)
+                    }
+                }
+
+                const updateElText = (input, element) => {
+                    element.innerText = input
+                }
+
+
+
+                const completedTime = document.querySelectorAll('.completedDate')
+                const dateComplete = document.querySelectorAll('.dateComplete')
+
+                dateComplete.forEach(time => {
+                    // const timeValue = time.innerText.replace('completed Date:', '')
+                    const timeValue = time.innerText
+                    console.log("dater", new Date(timeValue))
+
+                    updateElText(dateToCountdown(timeValue), document.querySelector(`#countdown${time.id}`))
+                    const updater = () => setInterval(() => {
+
+
+                        updateElText(dateToCountdown(timeValue), document.querySelector(`#countdown${time.id}`))
+                    }
+
+
+                        , 1000)
+                    updater()
+                    // getdatefromdb(time.id)
+
+                })
+
+
+
+
+
+            </script>
+</body>
+
+</html>

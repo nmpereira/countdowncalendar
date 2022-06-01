@@ -1,0 +1,38 @@
+<% for(var i=0; i < data.length; i++) {%>
+    <li class="quote">
+        <!-- Output name from the iterated quote object -->
+
+        <span>
+            <%= data[i].key %>
+        </span>||
+
+
+        <span>
+            user:<%= data[i].user %>
+        </span>||
+        <!-- <span>
+            Title: <%= data[i].title %>
+        </span>||
+        <span>
+            description: <%= data[i].description %>
+        </span>||
+        <span>
+            completed: <%= data[i].completed %>
+        </span>||  -->
+        <span class="completedDate">
+            completed Date: <p class="dateComplete" id=<%=data[i].key %>><%= datecomplete[i] %>
+            </p>
+            <p class="dateCompleteCountdown" id=countdown<%=data[i].key %>>test</p>
+        </span>
+
+        <!-- ||
+        <span>
+            updated_at: <%= data[i].updated_at %>
+        </span>||
+        <span>
+            created_at: <%= data[i].created_at %>
+        </span> -->
+
+        <button class="delete-button" id=<%=data[i].key %>>delete</button>
+    </li>
+    <% } %>
